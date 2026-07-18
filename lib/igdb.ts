@@ -89,6 +89,7 @@ export async function getIgdbCoversByTitles(
   }
 
   const data: Array<{ name: string; result: any[] }> = await res.json();
+  console.log("[igdb] Respuesta cruda (primeros 3):", JSON.stringify(data.slice(0, 3)));
 
   for (const entry of data) {
     const game = entry.result?.[0];
