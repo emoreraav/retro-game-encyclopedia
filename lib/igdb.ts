@@ -53,7 +53,10 @@ export async function getIgdbCoversByTitles(
 ): Promise<Map<string, string>> {
   const result = new Map<string, string>();
   if (titles.length === 0) return result;
-  if (!TWITCH_CLIENT_ID || !TWITCH_CLIENT_SECRET) return result; // sin credenciales, no hay covers
+  if (!TWITCH_CLIENT_ID || !TWITCH_CLIENT_SECRET) {
+    console.warn("[igdb] Faltan TWITCH_CLIENT_ID/TWITCH_CLIENT_SECRET, se omiten carátulas oficiales");
+    return result;
+  }
 
   const token = await getAccessToken();
 
@@ -97,9 +100,8 @@ export async function getIgdbCoversByTitles(
     }
   }
 
+  console.log(`[igdb] Carátulas encontradas: ${result.size} de ${titles.length} títulos buscados`);
   return result;
 }
-
-function escapeQuery(title: string): string {
   return title.replace(/"/g, '\\"');
 }
