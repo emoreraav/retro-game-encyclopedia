@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import AuthWidget from "@/components/AuthWidget";
 
 export const metadata: Metadata = {
   title: "RetroVault — Enciclopedia de videojuegos",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <a href="/" className="font-display font-bold text-lg text-white">
               Retro<span className="text-phosphor">Vault</span>
             </a>
+            <AuthWidget />
           </div>
         </nav>
         <main>{children}</main>
