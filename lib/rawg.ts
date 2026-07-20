@@ -1,6 +1,7 @@
 import type { GameDetail, GameSummary, Screenshot, StoreLink } from "@/types/game";
 import { buildStoreLinks } from "./storefronts";
 import { getIgdbCoversByTitles } from "./igdb";
+import { translateToSpanish } from "./translate";
 
 const RAWG_BASE = "https://api.rawg.io/api";
 const API_KEY = process.env.RAWG_API_KEY; // server-only, nunca NEXT_PUBLIC_
@@ -118,11 +119,13 @@ export async function getGameBySlug(slug: string): Promise<GameDetail> {
     console.warn("[igdb] No se pudo obtener la carátula oficial:", err);
   }
 
+  const description = await translateToSpanish(stripHtml(detail.description));
+
   return {
     id: detail.id,
     slug: detail.slug,
     title: detail.name,
-    description: stripHtml(detail.description),
+    description,
     coverUrl,
     releaseDate: detail.released,
     developers: (detail.developers ?? []).map((d: any) => d.name),
