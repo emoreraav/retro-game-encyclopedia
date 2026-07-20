@@ -2,7 +2,7 @@
 // ruso, chino...) al español, usando Claude Haiku por ser rápido y barato
 // para una tarea de traducción simple.
 
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY?.trim();
 
 export async function translateToSpanish(text: string): Promise<string> {
   if (!text.trim()) return text;
